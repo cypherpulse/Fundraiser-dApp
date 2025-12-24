@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useState, useCallback } from "react";
+import { useAccount } from "wagmi";
 import { Toaster } from "@/components/ui/toaster";
 import { ConnectWallet } from "@/components/ConnectWallet";
 import { FundingProgress } from "@/components/FundingProgress";
@@ -17,13 +18,16 @@ import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 function App() {
+  const { address: wagmiAddress, isConnected: wagmiConnected } = useAccount();
   const [balance, setBalance] = useState<bigint>(BigInt(0));
   const [goal, setGoal] = useState<bigint>(BigInt(0));
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const connected = isWalletConnected();
-  const userAddress = getWalletAddress();
+  const stacksConnected = isWalletConnected();
+  const stacksAddress = getWalletAddress();
+  const connected = stacksConnected || wagmiConnected;
+  const userAddress = stacksAddress || wagmiAddress;
 
   const fetchContractData = useCallback(async () => {
     try {
