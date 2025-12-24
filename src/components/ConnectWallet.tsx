@@ -2,8 +2,11 @@
  * Wallet connection component with connect/disconnect functionality
  */
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Wallet, LogOut } from "lucide-react";
+import { useAccount, useDisconnect } from "wagmi";
 import {
   connectWallet,
   disconnectWallet,
@@ -11,16 +14,21 @@ import {
   getWalletAddress,
 } from "@/lib/wallet";
 import { truncateAddress } from "@/lib/stacks";
+import { getModal } from "@/lib/appkit";
 
 interface ConnectWalletProps {
   onConnectionChange?: () => void;
 }
 
 export function ConnectWallet({ onConnectionChange }: ConnectWalletProps) {
-  const connected = isWalletConnected();
-  const address = getWalletAddress();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { address: wagmiAddress, isConnected: wagmiConnected } = useAccount();
+  const { disconnect: wagmiDisconnect } = useDisconnect();
+  const stacksConnected = isWalletConnected();
+  const stacksAddress = getWalletAddress();
 
-  const handleConnect = () => {
+  const handleStacksConnect = () => {
+    setIsDialogOpen(false);
     connectWallet({
       onFinish: () => {
         onConnectionChange?.();
@@ -28,10 +36,25 @@ export function ConnectWallet({ onConnectionChange }: ConnectWalletProps) {
     });
   };
 
+  const handleWalletConnect = () => {
+    setIsDialogOpen(false);
+    const modal = getModal();
+    if (modal) {
+      modal.open();
+    }
+  };
+
   const handleDisconnect = () => {
-    disconnectWallet();
+    if (stacksConnected) {
+      disconnectWallet();
+    } else if (wagmiConnected) {
+      wagmiDisconnect();
+    }
     onConnectionChange?.();
   };
+
+  const connected = stacksConnected || wagmiConnected;
+  const address = stacksAddress || wagmiAddress;
 
   if (connected && address) {
     return (
@@ -54,9 +77,31 @@ export function ConnectWallet({ onConnectionChange }: ConnectWalletProps) {
   }
 
   return (
-    <Button onClick={handleConnect} className="gap-2">
-      <Wallet className="h-4 w-4" />
-      Connect Wallet
-    </Button>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger asChild>
+        <Button className="gap-2">
+          <Wallet className="h-4 w-4" />
+          Connect Wallet
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Choose Wallet Type</DialogTitle>
+          <DialogDescription>
+            Select how you want to connect your wallet to the application.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex flex-col gap-4">
+          <Button onClick={handleStacksConnect} className="gap-2">
+            <Wallet className="h-4 w-4" />
+            Connect Stacks Wallet
+          </Button>
+          <Button onClick={handleWalletConnect} variant="outline" className="gap-2">
+            <Wallet className="h-4 w-4" />
+            Connect WalletConnect
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
