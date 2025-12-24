@@ -7,7 +7,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Vercel](https://vercel.com/button)](https://fundraiser-d-app-kappa.vercel.app)
 
-Production-ready decentralized fundraising on Stacks with Hiro Connect. Optional WalletConnect support via Reown AppKit.
+Production-ready decentralized fundraising on Stacks. Users can connect wallets using Stacks Connect or WalletConnect via Reown AppKit.
 
 **Live Demo**: [fundraiser-d-app-kappa.vercel.app](https://fundraiser-d-app-kappa.vercel.app)
 
@@ -28,7 +28,7 @@ Production-ready decentralized fundraising on Stacks with Hiro Connect. Optional
 - [Security](#security)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
-- [WalletConnect via Reown AppKit (Optional)](#walletconnect-via-reown-appkit-optional)
+- [Multi-Wallet Support (WalletConnect)](#multi-wallet-support-walletconnect)
 
 ![Fundraiser App](./assets/fund.png)
 
@@ -38,7 +38,7 @@ The Stacks FundRaiser dApp enables decentralized fundraising on Bitcoin L2 using
 
 ### Key Features
 
-- Secure wallet integration via `@stacks/connect` (Leather and Xverse)
+- Secure wallet integration via `@stacks/connect` (Leather and Xverse) and optional WalletConnect using Reown AppKit ^1.8.15
 - Smart contract backed (Clarity on Stacks Testnet)
 - Real-time fundraising progress and personal contribution tracking
 - Modern UI using shadcn/ui and Tailwind CSS
@@ -132,13 +132,16 @@ flowchart TD
 - Form Handling: React Hook Form with Zod validation
 
 ### Stacks Integration
-- Wallet Connection: `@stacks/connect` v7.10.2 (Hiro Connect for Leather/Xverse)
+- Wallet Connection: `@stacks/connect` v7.10.2 (Stacks Connect for Leather/Xverse)
 - Transaction Handling: `@stacks/transactions` v6.17.0
 - Network Configuration: `@stacks/network` v6.17.0
 - Smart Contracts: Clarity language on Stacks blockchain
+- Multi-Wallet Support: Integrated wallet connection using `@reown/appkit` ^1.8.15, `@reown/appkit-adapter-bitcoin` ^1.8.15, and `@reown/appkit-adapter-wagmi` ^1.8.15 for enhanced compatibility
 
-### Optional Multi-Wallet (WalletConnect)
-- WalletConnect via Reown AppKit (recommended range `^1.0.0`). Not required for Stacks wallets, but useful for multi-chain experiences and challenge scoring.
+![Wallet Integration](./assets/wallet.png)
+
+### Multi-Wallet Support (WalletConnect)
+- WalletConnect via Reown AppKit ^1.8.15 for broader wallet compatibility and multi-chain support.
 
 ### Development Tools
 - Linting: ESLint with TypeScript rules
@@ -325,7 +328,7 @@ We welcome contributions from the Stacks community! This project is designed to 
 
 ### For Builders
 - [Stacks.js SDK](https://github.com/hirosystems/stacks.js) - JavaScript libraries
-- [Hiro Connect](https://connect.hiro.so/) - Wallet integration guide
+- [Stacks Connect](https://connect.hiro.so/) - Wallet integration guide
 - [Stacks Explorer](https://explorer.stacks.co/) - Blockchain explorer
 
 ### For Learners
@@ -408,19 +411,19 @@ Built for the Stacks ecosystem.
 
 ---
 
-## WalletConnect via Reown AppKit (Optional)
+## Multi-Wallet Support (WalletConnect)
 
-This project primarily uses Hiro Connect (`@stacks/connect`) for Stacks-native wallets. For multi-wallet and multi-chain experiences, you can optionally integrate Reown AppKit (formerly WalletConnect AppKit).
+This project supports wallet connections via Stacks Connect (`@stacks/connect`) for Stacks-native wallets and Reown AppKit for broader multi-wallet and multi-chain experiences.
 
-- Package: `@reown/appkit` (recommended version range: `^1.0.0`)
+- Package: `@reown/appkit` ^1.8.15 (recommended version range: `^1.8.15`)
 - React bindings: `@reown/appkit-react`
 
 Install:
 
 ```bash
-pnpm add @reown/appkit@latest @reown/appkit-react@latest
+pnpm add @reown/appkit@^1.8.15 @reown/appkit-react@^1.8.15
 ```
 
 Notes:
-- Reown AppKit is not required for Leather/Xverse on Stacks; it is provided as an optional integration to align with leaderboard tracking for “Use of WalletKit SDK or Reown AppKit”.
+- Users can connect using both Stacks Connect for Stacks-native wallets (Leather/Xverse) and Reown AppKit for broader wallet compatibility, aligning with leaderboard tracking for "Use of WalletKit SDK or Reown AppKit".
 - Refer to official Reown documentation for initialization and provider configuration.
