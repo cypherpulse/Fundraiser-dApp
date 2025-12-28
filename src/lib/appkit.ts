@@ -1,5 +1,6 @@
 /**
  * Reown AppKit configuration for WalletConnect
+ * Optimized for minimal conflicts
  */
 
 import { createAppKit } from '@reown/appkit'
