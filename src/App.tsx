@@ -1,6 +1,7 @@
 /**
  * FundRaiser dApp - A Stacks blockchain fundraising application
  * Built for Stacks Builder Challenge demonstration
+ * Updated for enhanced user experience
  */
 
 import { useEffect, useState, useCallback } from "react";
