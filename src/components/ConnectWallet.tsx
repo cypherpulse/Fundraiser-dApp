@@ -1,5 +1,6 @@
 /**
  * Wallet connection component with connect/disconnect functionality
+ * Enhanced with multiple wallet options
  */
 
 import { useState } from "react";
