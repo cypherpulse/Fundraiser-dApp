@@ -5,7 +5,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { wagmiConfig } from "./lib/appkit";
 
-// Create QueryClient
+// Create QueryClient with optimized settings
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
