@@ -1,5 +1,6 @@
 /**
  * Donation form component for contributing STX to the fundraiser
+ * Includes input validation and transaction handling
  */
 
 import { useState } from "react";
