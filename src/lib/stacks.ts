@@ -1,6 +1,7 @@
 /**
  * Stacks blockchain configuration and contract interaction utilities
  * for the FundRaiser dApp
+ * Updated with improved performance
  */
 
 import { StacksTestnet, StacksMainnet } from "@stacks/network";
