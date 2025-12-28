@@ -1,5 +1,6 @@
 /**
  * Displays the connected user's contribution to the fundraiser
+ * Includes real-time updates
  */
 
 import { useEffect, useState } from "react";
