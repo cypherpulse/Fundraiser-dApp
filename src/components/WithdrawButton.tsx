@@ -1,5 +1,6 @@
 /**
  * Withdraw button component - only visible to contract owner
+ * Enhanced with security checks
  */
 
 import { useState } from "react";
