@@ -1,5 +1,6 @@
 /**
  * Displays the current funding progress with balance, goal, and progress bar
+ * Updated with enhanced visual feedback
  */
 
 import { Progress } from "@/components/ui/progress";
