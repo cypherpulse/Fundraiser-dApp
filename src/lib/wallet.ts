@@ -1,5 +1,6 @@
 /**
  * Wallet connection and session management for Stacks
+ * Updated for better compatibility
  */
 
 import { AppConfig, UserSession, showConnect } from "@stacks/connect";
